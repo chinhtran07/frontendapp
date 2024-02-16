@@ -1,12 +1,13 @@
 import { ActivityIndicator, Image } from "react-native";
 import Styles from "./Styles";
 import { appColors } from "../../constants/appColors";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API, { authApi, endpoints } from "../../configs/API";
 import DropDownPicker from "react-native-dropdown-picker";
 import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, TextComponent } from "../../components";
 import { User, Lock } from "iconsax-react-native";
+import useAuth from "../../configs/AuthContext";
 
 
 const LoginScreen = ({ navigation }) => {
@@ -22,6 +23,8 @@ const LoginScreen = ({ navigation }) => {
 
     const [loading, setLoading] = useState(false);
 
+    const [state, dispatch] = useAuth()
+
 
 
     const login = async () => {
@@ -36,7 +39,15 @@ const LoginScreen = ({ navigation }) => {
             );
 
             await AsyncStorage.setItem("accessToken", res.data.access_token)
+            let accessToken = res.data.access_token;
             let user = await authApi(res.data.access_token).get(endpoints['current-user']);
+            dispatch({
+                type: 'login',
+                payload: {
+                    user: user.data, 
+                    accessToken
+                }
+            })
         } catch (ex) {
             console.error(ex)
         } finally {

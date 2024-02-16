@@ -1,12 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthNavigator from "./AuthNavigator";
 import MainNavigator from "./MainNavigator";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { SplashScreen } from "../screens";
+import useAuth from "../configs/AuthContext"
+import { authApi, endpoints } from "../configs/API";
 
 const AppRouters = () => {
     const [isShowSplash, setShowSplash] = useState(true);
-    const [accessToken, setAccessToken] = useState('')
+
+    const {getItem} = useAsyncStorage('accessToken')
+
+    const [state, dispatch] = useAuth()
+
 
     useEffect(() => {
         checkLogin();
@@ -18,16 +24,23 @@ const AppRouters = () => {
     }, []);
 
     const checkLogin = async () => {
-        const token = await AsyncStorage.getItem("accessToken")
-
-        token && setAccessToken(token);
+        const token = await getItem();
+        let user = await authApi(token).get(endpoints['current-user']);
+        token && dispatch({
+            type: 'login',
+            payload: {
+                user: user.data,
+                accessToken: token
+            }
+        })
     }
+
 
     return (
         <>
             {isShowSplash ? (
                 <SplashScreen />
-            ) : accessToken ? (
+            ) : state.accessToken ? (
                 <MainNavigator />
             ) : (
                 <AuthNavigator />
