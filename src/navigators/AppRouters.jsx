@@ -25,11 +25,11 @@ const AppRouters = () => {
 
     const checkLogin = async () => {
         const token = await getItem();
-        let user = await authApi(token).get(endpoints['current-user']);
+        const data = await authApi(token).get(endpoints['current-user']).then(u => u.data)
         token && dispatch({
             type: 'login',
             payload: {
-                user: user.data,
+                user: data,
                 accessToken: token
             }
         })

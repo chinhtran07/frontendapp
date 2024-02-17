@@ -19,8 +19,8 @@ const ContainerComponent = (props) => {
     const { isScroll, title, children, styles } = props
 
     const returnContainer = isScroll ? (
-        <ScrollView style={[{flex: 1},{styles}]}>{children}</ScrollView>
-    ) : <View style={[{flex: 1} ,{styles}]}>{children}</View>;
+        <ScrollView style={[{flex: 1},styles]}>{children}</ScrollView>
+    ) : <View style={[{flex: 1} ,styles]}>{children}</View>;
 
     return (
         <SafeAreaView style={globalStyles.container}>

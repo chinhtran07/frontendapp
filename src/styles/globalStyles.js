@@ -39,5 +39,11 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center'
+    },
+    avatar: {
+        width: 50,
+        height: 50,
+        resizeMode: 'cover',
+        borderRadius: 50,
     }
 })

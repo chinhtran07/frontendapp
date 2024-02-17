@@ -6,7 +6,10 @@ export const endpoints = {
     "login": "/login/",
     "register": "/register/",
     'forget_password': '/users/forget_password/',
-    'current-user': '/users/current-user/'
+    'current-user': '/users/current-user/',
+    'search': '/users/search/',
+    'add-posts': '/users/posts/',
+    'posts': '/posts/'
 }
 
 

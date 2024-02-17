@@ -4,5 +4,8 @@ export const appColors = {
     text: "#000",
     link: '#5669ff',
     button: '#94E4FA',
-    background: '#f0f2f5'
+    background: '#f0f2f5',
+    black: '#000000',
+    white: '#ffffff',
+    warning: '#ff0000'
 } 

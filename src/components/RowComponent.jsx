@@ -17,7 +17,7 @@ import globalStyles from "../styles/globalStyles"
 const RowComponent = (props) => {
     const {justify, styles, children} = props
 
-    return <View style={[globalStyles.row, styles]}>{children}</View>
+    return <View style={[globalStyles.row,styles]}>{children}</View>
 }
 
 export default RowComponent

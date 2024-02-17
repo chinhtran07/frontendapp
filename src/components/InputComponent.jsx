@@ -15,6 +15,7 @@ import globalStyles from "../styles/globalStyles"
  * @property {boolean} [isPassword] - A flag indicating whether the input field should be treated as a password field (for password masking).
  * @property {boolean} [allowClear] - A flag indicating allow clear input
  * @property {KeyboardType} [type] - The type input
+ * @property {boolean} [multiline]
  */
 
 /**
@@ -24,7 +25,7 @@ import globalStyles from "../styles/globalStyles"
  */
 
 const InputComponent = (props) => {
-    const { value, onChange, affix, suffix, placeholder, isPassword, allowClear, type } = props
+    const { value, onChange, affix, suffix, placeholder, isPassword, allowClear, type, multiline } = props
     const [isShowPassword, setShowPassword] = useState(isPassword ?? false)
     return (
         <View style={[styles.inputContainer]}>
@@ -36,7 +37,7 @@ const InputComponent = (props) => {
                 placeholder={placeholder}
                 secureTextEntry={isShowPassword}
                 keyboardType={type ?? "default"}
-                ty
+                multiline= {multiline}
             />
             {suffix ?? suffix}
             <TouchableOpacity

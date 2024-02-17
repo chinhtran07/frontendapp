@@ -6,7 +6,7 @@ const SettingNavigator = () => {
 
     return (
         <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Setting" component={SettingScreen}/>
+            <Stack.Screen name="SettingScreen" component={SettingScreen}/>
         </Stack.Navigator>
     )
 }
