@@ -1,17 +1,19 @@
 import { Image, View } from "react-native";
-import TextComponent from "./TextComponent";
-import RowComponent from "./RowComponent";
-import { appColors } from "../constants/appColors";
-import globalStyles from "../styles/globalStyles";
+import TextComponent from "../TextComponent";
+import RowComponent from "../RowComponent";
+import { appColors } from "../../constants/appColors";
+import globalStyles from "../../styles/globalStyles";
 import moment from "moment";
-import SectionComponent from "./SectionComponent";
-import SpaceComponent from "./SpaceComponent";
-import ButtonComponent from "./ButtonComponent";
+import SectionComponent from "../SectionComponent";
+import SpaceComponent from "../SpaceComponent";
+import ButtonComponent from "../ButtonComponent";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const PostComponent = ({ ...props }) => {
     const post = props.post
     const user = post.user
+
+
     return (
         <View style={{ backgroundColor: appColors.white, borderRadius: 10 }}>
             <RowComponent>
@@ -30,7 +32,6 @@ const PostComponent = ({ ...props }) => {
             </SectionComponent>
             <SectionComponent>
                 <RowComponent styles={{justifyContent: 'space-between'}}>
-                    <ButtonComponent text="Like" icon={<FontAwesome name="thumbs-up" size={20} color={post.reacted ? appColors.black : appColors.white}/>} iconFlex="left" type="primary" />
                     <ButtonComponent text="Comment" icon={<FontAwesome name="comment" size={20}/>} iconFlex="left" type="primary"/>
                     <ButtonComponent text="Share" icon={<FontAwesome name="share" size={20}/>} iconFlex="left" type="primary"/>
                 </RowComponent>

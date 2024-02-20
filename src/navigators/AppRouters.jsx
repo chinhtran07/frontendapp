@@ -9,7 +9,7 @@ import { authApi, endpoints } from "../configs/API";
 const AppRouters = () => {
     const [isShowSplash, setShowSplash] = useState(true);
 
-    const {getItem} = useAsyncStorage('accessToken')
+    const { getItem } = useAsyncStorage('accessToken')
 
     const [state, dispatch] = useAuth()
 
@@ -25,14 +25,18 @@ const AppRouters = () => {
 
     const checkLogin = async () => {
         const token = await getItem();
-        const data = await authApi(token).get(endpoints['current-user']).then(u => u.data)
-        token && dispatch({
-            type: 'login',
-            payload: {
-                user: data,
-                accessToken: token
-            }
-        })
+        try {
+            const data = await authApi(token).get(endpoints['current-user']).then(u => u.data)
+            token && dispatch({
+                type: 'login',
+                payload: {
+                    user: data,
+                    accessToken: token
+                }
+            })
+        } catch (ex) {
+
+        }
     }
 
 

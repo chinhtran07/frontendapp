@@ -5,6 +5,8 @@ import SectionComponent from "./SectionComponent"
 import RowComponent from "./RowComponent"
 import TextComponent from "./TextComponent"
 import InputComponent from "./InputComponent"
+import ReactionComponent from "./post/ReactionComponent"
+import PostComponent from "./post/PostComponent"
 
 export {
     SpaceComponent,
@@ -13,5 +15,7 @@ export {
     SectionComponent,
     RowComponent,
     TextComponent,
-    InputComponent
+    InputComponent,
+    ReactionComponent,
+    PostComponent
 }

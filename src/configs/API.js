@@ -9,7 +9,8 @@ export const endpoints = {
     'current-user': '/users/current-user/',
     'search': '/users/search/',
     'add-posts': '/users/posts/',
-    'posts': '/posts/'
+    'list-random-posts': '/posts/list-random-posts/',
+    'reacts': (postID) => `/posts/${postID}/reacts/`
 }
 
 

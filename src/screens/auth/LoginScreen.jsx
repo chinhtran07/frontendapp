@@ -1,7 +1,7 @@
 import { ActivityIndicator, Image } from "react-native";
 import Styles from "./Styles";
 import { appColors } from "../../constants/appColors";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API, { authApi, endpoints } from "../../configs/API";
 import DropDownPicker from "react-native-dropdown-picker";

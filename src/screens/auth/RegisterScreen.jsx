@@ -4,8 +4,7 @@ import globalStyles from "../../styles/globalStyles"
 import { appColors } from "../../constants/appColors"
 import API, { endpoints } from "../../configs/API"
 import { ActivityIndicator, Image } from "react-native"
-import { appInfo } from "../../constants/appInfos"
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker'
 
 const RegisterScreen = ({navigation}) => {
     const [user, setUser] = useState(
@@ -31,7 +30,7 @@ const RegisterScreen = ({navigation}) => {
                 form.append(key, {
                     uri: user[key].uri,
                     name: user[key].fileName,
-                    type: 'image/jpeg'
+                    type: user[key].mimeType
                 })
             } else {
                 form.append(key, user[key])
