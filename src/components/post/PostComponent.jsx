@@ -32,6 +32,7 @@ const PostComponent = ({ ...props }) => {
             </SectionComponent>
             <SectionComponent>
                 <RowComponent styles={{justifyContent: 'space-between'}}>
+                    <ButtonComponent text="Like" icon={<FontAwesome name="thumbs-up" size={20} color={post.reacted ? appColors.black : appColors.white}/>} iconFlex="left" type="primary" />
                     <ButtonComponent text="Comment" icon={<FontAwesome name="comment" size={20}/>} iconFlex="left" type="primary"/>
                     <ButtonComponent text="Share" icon={<FontAwesome name="share" size={20}/>} iconFlex="left" type="primary"/>
                 </RowComponent>

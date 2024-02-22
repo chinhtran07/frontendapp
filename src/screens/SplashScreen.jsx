@@ -1,6 +1,6 @@
 import { ActivityIndicator, Image, ImageBackground, View } from "react-native";
 import globalStyles from "../styles/globalStyles";
-import { appInfo } from "../constants/appInfos";
+import { appInfos } from "../constants/appInfos";
 import { SpaceComponent } from "../components";
 import { appColors } from "../constants/appColors";
 
@@ -9,7 +9,7 @@ const SplashScreen = () => {
         <View style={globalStyles.container}>
             <Image source={require('../assets/images/logo.png')} 
             style={{
-                width: appInfo.sizes.WIDTH, 
+                width: appInfos.sizes.WIDTH, 
                 resizeMode: 'contain'
             }}
             />

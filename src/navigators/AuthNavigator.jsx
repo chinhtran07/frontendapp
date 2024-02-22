@@ -9,8 +9,8 @@ const AuthNavigator = () => {
             headerShown: false,
         }}>
             <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="ForgetPassword" component={ForgetPasswordScreen} />
+            <Stack.Screen options={{headerShown: true}} name="Register" component={RegisterScreen} />
+            <Stack.Screen options={{headerShown: true}} name="ForgetPassword" component={ForgetPasswordScreen} />
         </Stack.Navigator>
     )
 }

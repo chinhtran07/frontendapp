@@ -32,6 +32,7 @@ const RegisterScreen = ({navigation}) => {
                     name: user[key].fileName,
                     type: user[key].mimeType
                 })
+                console.log(user[key].mimeType)
             } else {
                 form.append(key, user[key])
             }
@@ -75,7 +76,7 @@ const RegisterScreen = ({navigation}) => {
             <SectionComponent>
                 <TextComponent title text="NHẬP THÔNG TIN ĐĂNG KÝ" />
             </SectionComponent>
-            <SectionComponent>
+            <SectionComponent styles={{paddingHorizontal: 20}}>
                 <InputComponent allowClear onChange={val => change("first_name", val)} value={user.first_name} placeholder="Tên" />
                 <InputComponent allowClear onChange={val => change("last_name", val)} value={user.last_name} placeholder="Họ và tên lót" />
                 <InputComponent onChange={val => change("username", val)} value={user.username} placeholder="Tài khoản" />

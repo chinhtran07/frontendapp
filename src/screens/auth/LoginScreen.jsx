@@ -75,7 +75,7 @@ const LoginScreen = ({ navigation }) => {
                     setOpen={setOpen}
                     setValue={setValue}
                     setItems={setRoles}
-                    onChangeItem={(items) => setValue(items.value)}
+                    onChangeItem={(item) => setValue(item.value)}
                 />
                 <InputComponent
                     value={username}
@@ -95,7 +95,7 @@ const LoginScreen = ({ navigation }) => {
                     type='link'
                     text="Quên mật khẩu?"
                     textSize={30}
-                    onPress={() => navigation.navigate("ForgetPasswordScreen")}
+                    onPress={() => navigation.navigate("ForgetPassword")}
                 />
             </SectionComponent>
             <SectionComponent>
@@ -111,7 +111,7 @@ const LoginScreen = ({ navigation }) => {
             <SectionComponent>
                 <RowComponent styles={{justifyContent: 'center'}}>
                     <TextComponent text="Bạn chưa có tài khoản?" />
-                    <ButtonComponent text=" Đăng ký" type='link' onPress={() => navigation.navigate('RegisterScreen')}/>
+                    <ButtonComponent text=" Đăng ký" type='link' onPress={() => navigation.navigate('Register')}/>
                 </RowComponent>
             </SectionComponent>
             {loading ? <ActivityIndicator color={appColors.blue} /> : <></>}

@@ -6,7 +6,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginHorizontal: 14
+        paddingTop: 40
     }, text: {
         fontSize: 14,
         color: appColors.text,

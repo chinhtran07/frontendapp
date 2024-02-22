@@ -93,7 +93,6 @@ const HomeScreen = ({ navigation }) => {
                 styles={{
                     backgroundColor: appColors.white,
                     borderRadius: 20,
-                    marginTop: 10,
                 }}>
                 <RowComponent
                     styles={{
