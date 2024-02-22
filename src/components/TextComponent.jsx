@@ -21,14 +21,14 @@ import { TextStyle } from "react-native";
  */
 
 const TextComponent = (props) => {
-    const { text, size, flex, font, title, color, styles } = props
+    const { text, size, flex, color, styles } = props
     return (
         <Text style={[
             globalStyles.text,
             {
                 color: color ?? appColors.text,
                 flex: flex ?? 0,
-                fontSize: size ?? 14,
+                fontSize: size ?? 14
             },
             styles
         ]}>

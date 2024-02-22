@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SearchNormal1 } from "iconsax-react-native";
 import { TouchableOpacity } from "react-native";
 import { useState } from "react";
-import { SearchingScreen } from "../screens";
+import { SearchingScreen, UserProfileScreen } from "../screens";
 
 const MainNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -38,6 +38,7 @@ const MainNavigator = () => {
                 }}
                 name="Main" component={TabNavigator} />
             <Stack.Screen options={{headerShown: false}} name="Searching" component={SearchingScreen}/>
+            <Stack.Screen options={{headerShown: true}} name="UserProfile" component={UserProfileScreen} />
         </Stack.Navigator>
     )
 }

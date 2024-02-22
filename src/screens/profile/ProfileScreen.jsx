@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ContainerComponent, PostComponent, SectionComponent, SpaceComponent } from "../../components";
+import { ContainerComponent, PostComponent, SectionComponent, SpaceComponent, TextComponent } from "../../components";
 import useAuth from "../../configs/AuthContext";
 import Header from "./components/Header"
 import { authApi, endpoints } from "../../configs/API";
@@ -29,6 +29,7 @@ const ProfileScreen = () => {
         <ContainerComponent isScroll>
             <Header user={state.user}/>
             <SpaceComponent height={10}/>
+            <TextComponent text="Bài viết" size={24} styles={{paddingBottom: 10, fontWeight: '400'}} />
             {posts === null ? <ActivityIndicator /> :
                 (
                     (posts).map(p => (

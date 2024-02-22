@@ -12,7 +12,7 @@ export const endpoints = {
     'list-posts': '/posts/', 
     'list-random-posts': '/posts/list-random-posts/',
     'reacts': (postID) => `/posts/${postID}/reacts/`,
-    'retrieve-user': (userID) => `/users/${postID}/` 
+    'retrieve-user': (userID) => `/users/${userID}/` 
 }
 
 
