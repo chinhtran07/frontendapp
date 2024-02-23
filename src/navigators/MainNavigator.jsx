@@ -5,7 +5,6 @@ import { appColors } from "../constants/appColors";
 import { useNavigation } from "@react-navigation/native";
 import { SearchNormal1 } from "iconsax-react-native";
 import { TouchableOpacity } from "react-native";
-import { useState } from "react";
 import { SearchingScreen, UserProfileScreen } from "../screens";
 
 const MainNavigator = () => {

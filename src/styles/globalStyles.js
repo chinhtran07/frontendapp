@@ -6,7 +6,6 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: 40
     }, text: {
         fontSize: 14,
         color: appColors.text,
@@ -45,5 +44,8 @@ export default StyleSheet.create({
         height: 50,
         resizeMode: 'cover',
         borderRadius: 50,
-    }
+    },
+    dropdownDropStyle: {
+        backgroundColor: 'gray',
+    },
 })

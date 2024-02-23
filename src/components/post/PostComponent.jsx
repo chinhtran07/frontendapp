@@ -21,7 +21,7 @@ const PostComponent = ({ ...props }) => {
         <View style={{ backgroundColor: appColors.white, borderRadius: 10 }}>
             <TouchableOpacity onPress={() => (user.id === state.user.id ? navigation.navigate('Profile') : navigation.navigate('UserProfile', { userId: user.id }))}>
                 <RowComponent>
-                    <Image source={{ uri: user.avatar }} style={globalStyles.avatar} />
+                    <Image source={{ uri: user.avatar }} style={[globalStyles.avatar, {borderWidth: 1, borderColor: appColors.black}]} />
                     <SpaceComponent width={10} />
                     <TextComponent text={`${user.first_name} ${user.last_name}`} size={20} />
                 </RowComponent>

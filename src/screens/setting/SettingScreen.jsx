@@ -16,7 +16,7 @@ const SettingScreen = () => {
 
     return (
         <ContainerComponent>
-            <ButtonComponent text="Logout" type="primary" onPress={logout} />
+            <ButtonComponent text="Logout" type="primary" onPress={logout} styles={{paddingHorizontal:160}}/>
         </ContainerComponent>
     )
 }

@@ -8,6 +8,7 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, TextComponent } from "../../components";
 import { User, Lock } from "iconsax-react-native";
 import useAuth from "../../configs/AuthContext";
+import globalStyles from "../../styles/globalStyles";
 
 
 const LoginScreen = ({ navigation }) => {
@@ -68,7 +69,7 @@ const LoginScreen = ({ navigation }) => {
                 <TextComponent text="ĐĂNG NHẬP" size={22} color="#5608ff" styles={{ alignSelf: 'center', marginBottom: 10, fontWeight: 'bold' }} />
                 <DropDownPicker
                     style={[{ marginBottom: 10, borderColor: appColors.blue }]}
-                    dropDownStyle={Styles.dropdownDropStyle}
+                    dropDownStyle={globalStyles.dropdownDropStyle}
                     open={open}
                     value={value}
                     items={roles}

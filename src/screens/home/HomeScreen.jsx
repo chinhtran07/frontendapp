@@ -1,10 +1,12 @@
 import { ActivityIndicator, Image, TouchableOpacity } from "react-native";
-import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent } from "../../components";
+import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent, AddSurveyComponent } from "../../components";
 import useAuth from "../../configs/AuthContext";
 import { appColors } from "../../constants/appColors";
 import { useEffect, useState } from "react";
 import { authApi, endpoints } from "../../configs/API";
 import * as ImagePicker from 'expo-image-picker';
+import DropDownPicker from "react-native-dropdown-picker";
+import globalStyles from "../../styles/globalStyles";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -16,6 +18,13 @@ const HomeScreen = ({ navigation }) => {
     const [isEmpty, setIsEmpty] = useState(false);
     const [haveImage, setHaveImage] = useState(false)
     const [images, setImages] = useState([]);
+    const [types, setTypes] = useState([
+        { label: 'Post', value: 1 },
+        { label: 'Survey', value: 2 },
+        { label: 'Invitation', value: 3 }
+    ])
+    const [value, setValue] = useState(1)
+    const [open, setOpen] = useState(false);
 
     const addPost = async () => {
         if (content === "") {
@@ -39,6 +48,8 @@ const HomeScreen = ({ navigation }) => {
                 },
             });
             alert("Thêm bài viết thành công")
+            let p = posts
+            setPosts(p.append(res.data))
             isEmpty ? setIsEmpty(!isEmpty) : setIsEmpty(isEmpty);
             setImages([])
         } catch (ex) {
@@ -85,36 +96,55 @@ const HomeScreen = ({ navigation }) => {
             }
         };
         loadPosts();
-    }, [])
+    }, [posts])
 
     return (
         <ContainerComponent isScroll>
-            <SectionComponent
-                styles={{
-                    backgroundColor: appColors.white,
-                    borderRadius: 20,
-                }}>
-                <RowComponent
+            {user.role === 3 ? (
+                <DropDownPicker
+                    style={[{ marginBottom: 10, borderColor: appColors.blue }]}
+                    dropDownStyle={globalStyles.dropdownDropStyle}
+                    open={open}
+                    value={value}
+                    items={types}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setTypes}
+                    onChangeItem={(item) => setValue(item.value)}
+                />
+            ) : <></>}
+            {value === 1 ? (
+                <SectionComponent
                     styles={{
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingRight: 50,
-                        paddingTop: 10
+                        backgroundColor: appColors.white,
+                        borderRadius: 20,
                     }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-                        <Image source={{ uri: user.avatar }} width={50} height={50} resizeMode='cover' borderRadius={50} />
-                    </TouchableOpacity>
-                    <SpaceComponent width={5} />
-                    <InputComponent value={content} onChange={val => setContent(val)} placeholder="Nội dung bài viết" multiline={true} />
-                </RowComponent>
-                {isEmpty && !haveImage ? <TextComponent text="Vui lòng nhập nội dung" color={appColors.warning} size={15} /> : <></>}
-                <SectionComponent>
-                    
+                    <RowComponent
+                        styles={{
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingRight: 50,
+                            paddingTop: 10
+                        }}>
+                        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+                            <Image source={{ uri: user.avatar }} width={50} height={50} resizeMode='cover' borderRadius={50} />
+                        </TouchableOpacity>
+                        <SpaceComponent width={5} />
+                        <InputComponent value={content} onChange={val => setContent(val)} placeholder="Nội dung bài viết" multiline={true} />
+                    </RowComponent>
+                    {isEmpty && !haveImage ? <TextComponent text="Vui lòng nhập nội dung" color={appColors.warning} size={15} /> : <></>}
+                    <SectionComponent>
+
+                    </SectionComponent>
+                    <ButtonComponent text="Chọn ảnh" type="primary" onPress={picker} />
+                    <SpaceComponent height={10} />
+                    <ButtonComponent text="Đăng" type="primary" onPress={addPost} />
                 </SectionComponent>
-                <ButtonComponent text="Chọn ảnh" type="primary" onPress={picker} />
-                <SpaceComponent height={10} />
-                <ButtonComponent text="Đăng" type="primary" onPress={addPost} />
-            </SectionComponent>
+            ) : value === 2 ? (
+                <AddSurveyComponent />
+            ) : (
+                <></>
+            )}
             <SpaceComponent height={10} />
             {posts === null ? <ActivityIndicator /> :
                 (

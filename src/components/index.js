@@ -7,6 +7,7 @@ import TextComponent from "./TextComponent"
 import InputComponent from "./InputComponent"
 import ReactionComponent from "./post/ReactionComponent"
 import PostComponent from "./post/PostComponent"
+import AddSurveyComponent from "./AddSurveyComponent"
 
 export {
     SpaceComponent,
@@ -17,5 +18,6 @@ export {
     TextComponent,
     InputComponent,
     ReactionComponent,
-    PostComponent
+    PostComponent,
+    AddSurveyComponent
 }
