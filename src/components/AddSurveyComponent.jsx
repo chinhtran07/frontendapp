@@ -1,18 +1,18 @@
-import SectionComponent from "./SectionComponent"
-import useAuth from "../configs/AuthContext"
-import { Image, TouchableOpacity, View, ViewBase } from "react-native"
+import SectionComponent from "./SectionComponent";
+import useAuth from "../configs/AuthContext";
+import { Image, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import RowComponent from "./RowComponent";
 import { appColors } from "../constants/appColors";
 import TextComponent from "./TextComponent";
 import SpaceComponent from "./SpaceComponent";
 import InputComponent from "./InputComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ButtonComponent from "./ButtonComponent";
 import { ElementPlus } from "iconsax-react-native";
-import DropDownPicker from "react-native-dropdown-picker";
-import globalStyles from "../styles/globalStyles";
 import QuestionComponent from "./QuestionComponent";
+import { authApi, endpoints } from "../configs/API";
+import { LoadingModal } from "../modal";
 
 const AddSurveyComponent = () => {
     const [state, dispatch] = useAuth();
@@ -26,6 +26,9 @@ const AddSurveyComponent = () => {
         "title": "",
         "choices": [],
     })
+    const [errors, setErrors] = useState({})
+    const [show, setShow] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const navigation = useNavigation()
 
@@ -74,6 +77,36 @@ const AddSurveyComponent = () => {
         ));
     };
 
+    const postSurvey = async () => { 
+        let newErrors;
+        if (survey.title.length == 0) {
+            newErrors.title =  "Vui lòng nhập tiêu đề"
+        }
+        for (let i = 0; i < survey.questions.length; i++) {
+            if (survey.questions[i].type === 2 && survey.questions[i].choices.length < 3) {
+                newErrors.questions[index]="Số lượng lựa chọn phải lớn hơn 2"
+            }
+        }
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
+        }        
+        try {
+            let res = await authApi(state.accessToken).post(endpoints['add-survey'], survey)
+            console.info(res.data)
+            setShow(!show)
+            setLoading(!loading)
+            setSurvey({
+                "title": "",
+                "questions": []
+            })
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setLoading(!loading)
+        }
+    }
+
     return (
         <SectionComponent styles={{
             backgroundColor: appColors.white,
@@ -87,6 +120,7 @@ const AddSurveyComponent = () => {
                 <TextComponent text='Admin' size={20} />
             </RowComponent>
             <InputComponent value={survey['title']} onChange={val => changeSurvey("title", val)} placeholder="Nhập tiêu đề" />
+            {show && <TextComponent text="Vui lòng nhập tiêu đề" color={appColors.warning} />}
             <TextComponent text="Câu hỏi" />
             {renderQuestions()}
             <SpaceComponent height={10} />
@@ -98,7 +132,8 @@ const AddSurveyComponent = () => {
                 onPress={addQuestion}
             />
             <SpaceComponent height={10} />
-            <ButtonComponent text="Đăng" type="primary" />
+            <ButtonComponent text="Đăng" type="primary" onPress={postSurvey}/>
+            <LoadingModal visible={loading}/>
         </SectionComponent>
     )
 }

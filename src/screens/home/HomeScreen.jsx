@@ -1,12 +1,11 @@
 import { ActivityIndicator, Image, TouchableOpacity } from "react-native";
-import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent, AddSurveyComponent, CustomDropDownPicker } from "../../components";
+import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent, AddSurveyComponent, CustomDropDownPicker, SurveyComponent } from "../../components";
 import useAuth from "../../configs/AuthContext";
 import { appColors } from "../../constants/appColors";
 import { useEffect, useState } from "react";
 import { authApi, endpoints } from "../../configs/API";
 import * as ImagePicker from 'expo-image-picker';
-import DropDownPicker from "react-native-dropdown-picker";
-import globalStyles from "../../styles/globalStyles";
+import { ArrowLeft, ArrowRight } from "iconsax-react-native";
 
 
 const HomeScreen = ({ navigation }) => {
@@ -23,7 +22,11 @@ const HomeScreen = ({ navigation }) => {
         { label: 'Survey', value: 2 },
         { label: 'Invitation', value: 3 }
     ])
+    const [showTypeValue, setShowTypeValue] = useState(1)
     const [value, setValue] = useState(1)
+    const [page, setPage] = useState(1)
+    const [maxPage, setMaxPage] = useState(1);
+    const [surveys, setSurveys] = useState(null)
 
     const addPost = async () => {
         if (content === "") {
@@ -47,9 +50,11 @@ const HomeScreen = ({ navigation }) => {
                 },
             });
             alert("Thêm bài viết thành công")
-            let p = posts
-            setPosts(p.append(res.data))
+            let updatedPosts = [...posts];
+            updatedPosts.unshift(res.data);
+            setPosts(updatedPosts);
             isEmpty ? setIsEmpty(!isEmpty) : setIsEmpty(isEmpty);
+            setContent('');
             setImages([])
         } catch (ex) {
             console.log(ex)
@@ -87,20 +92,50 @@ const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         const loadPosts = async () => {
             try {
-                let res = await authApi(state.accessToken).get(endpoints['list-random-posts']);
-                setPosts(res.data);
+                let url = `${endpoints['list-random-posts']}?page=${page}`
+                let res = await authApi(state.accessToken).get(url);
+                setPosts(res.data.results);
+                setMaxPage(Math.ceil(res.data.count / 10));
             } catch (error) {
                 setPosts([])
                 console.error(error)
             }
         };
-        loadPosts();
-    }, [posts])
+        const loadSurveys = async () => {
+            try {
+                let url = `${endpoints['list-surveys']}?page=${page}`
+                let res = await authApi(state.accessToken).get(url);
+                setSurveys(res.data.results);
+                setMaxPage(Math.ceil(res.data.count / 10));
+            } catch (error) {
+                setSurveys(null)
+                console.error(error)
+            }
+        }
+        switch (showTypeValue) {
+            case 1:
+                loadPosts();
+                break;
+            case 2:
+                loadSurveys();
+                break;
+            default:
+                break;
+        }
+    }, [page])
+
+    const goToPreviousPage = () => {
+        setPage(prevPage => Math.max(prevPage - 1, 1));
+    };
+
+    const goToNextPage = () => {
+        setPage(prevPage => Math.min(prevPage + 1, maxPage));
+    };
 
     return (
         <ContainerComponent isScroll>
             {user.role === 3 ? (
-                <CustomDropDownPicker 
+                <CustomDropDownPicker
                     items={types}
                     setItems={setTypes}
                     selectedValue={value}
@@ -140,15 +175,54 @@ const HomeScreen = ({ navigation }) => {
                 <></>
             )}
             <SpaceComponent height={10} />
-            {posts === null ? <ActivityIndicator /> :
-                (
-                    (posts).map(p => (
-                        <SectionComponent key={p.id}>
-                            <PostComponent post={p} />
-                        </SectionComponent>
-                    ))
-                )
+            <CustomDropDownPicker
+                items={types}
+                setItems={setTypes}
+                selectedValue={showTypeValue}
+                setSelectedValue={setShowTypeValue}
+            />
+            <RowComponent styles={{ justifyContent: 'space-around' }}>
+                <TouchableOpacity onPress={goToPreviousPage}>
+                    <RowComponent>
+                        <ArrowLeft size={25} color={appColors.blue} />
+                        <TextComponent text="Trang trước" />
+                    </RowComponent>
+                </TouchableOpacity>
+                <TextComponent text={`Trang ${page}/${maxPage}`} />
+                <TouchableOpacity onPress={goToNextPage}>
+                    <RowComponent>
+                        <TextComponent text="Trang sau" />
+                        <ArrowRight size={25} color={appColors.blue} />
+                    </RowComponent>
+                </TouchableOpacity>
+            </RowComponent>
+            {showTypeValue === 1 &&
+                (posts === null ? (
+                    <ActivityIndicator />
+                ) : (
+                    <>
+                        <SpaceComponent height={10} />
+                        {posts.map(p => (
+                            <SectionComponent key={p.id}>
+                                <PostComponent post={p} />
+                            </SectionComponent>
+                        ))}
+                    </>
+                ))
             }
+            {showTypeValue === 2 && 
+            (surveys === null ? (
+                <ActivityIndicator />
+            ) : (
+                <>
+                    <SpaceComponent height={10} />
+                    {surveys.map(s => (
+                        <SectionComponent key={s.id}>
+                            <SurveyComponent survey={s}/>
+                        </SectionComponent>
+                    ))}
+                </>
+            ))}
         </ContainerComponent >
     )
 };

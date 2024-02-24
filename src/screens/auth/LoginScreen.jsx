@@ -1,14 +1,11 @@
-import { ActivityIndicator, Image } from "react-native";
-import Styles from "./Styles";
+import { ActivityIndicator, Image, View } from "react-native";
 import { appColors } from "../../constants/appColors";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API, { authApi, endpoints } from "../../configs/API";
-import DropDownPicker from "react-native-dropdown-picker";
 import { ButtonComponent, ContainerComponent, CustomDropDownPicker, InputComponent, RowComponent, SectionComponent, TextComponent } from "../../components";
 import { User, Lock } from "iconsax-react-native";
 import useAuth from "../../configs/AuthContext";
-import globalStyles from "../../styles/globalStyles";
 
 
 const LoginScreen = ({ navigation }) => {
@@ -45,7 +42,7 @@ const LoginScreen = ({ navigation }) => {
             dispatch({
                 type: 'login',
                 payload: {
-                    user: data, 
+                    user: data,
                     accessToken
                 }
             })
@@ -56,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
         }
     }
     return (
-        <ContainerComponent isScroll={true} styles={{backgroundColor: appColors.background}}>
+        <ContainerComponent isScroll={true} styles={{ backgroundColor: appColors.background }}>
             <SectionComponent styles={{
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -66,12 +63,14 @@ const LoginScreen = ({ navigation }) => {
             </SectionComponent>
             <SectionComponent>
                 <TextComponent text="ĐĂNG NHẬP" size={22} color="#5608ff" styles={{ alignSelf: 'center', marginBottom: 10, fontWeight: 'bold' }} />
-                <CustomDropDownPicker 
-                    items={roles}
-                    setItems={setRoles}
-                    selectedValue={value}
-                    setSelectedValue={setValue}
-                />
+                <View>
+                    <CustomDropDownPicker
+                        items={roles}
+                        setItems={setRoles}
+                        selectedValue={value}
+                        setSelectedValue={setValue}
+                    />
+                </View>
                 <InputComponent
                     value={username}
                     placeholder="Tài khoản"
@@ -104,9 +103,9 @@ const LoginScreen = ({ navigation }) => {
 
             </SectionComponent>
             <SectionComponent>
-                <RowComponent styles={{justifyContent: 'center'}}>
+                <RowComponent styles={{ justifyContent: 'center' }}>
                     <TextComponent text="Bạn chưa có tài khoản?" />
-                    <ButtonComponent text=" Đăng ký" type='link' onPress={() => navigation.navigate('Register')}/>
+                    <ButtonComponent text=" Đăng ký" type='link' onPress={() => navigation.navigate('Register')} />
                 </RowComponent>
             </SectionComponent>
             {loading ? <ActivityIndicator color={appColors.blue} /> : <></>}

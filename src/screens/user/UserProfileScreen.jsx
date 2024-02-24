@@ -30,7 +30,7 @@ const UserProfileScreen = ({ route }) => {
     useEffect(() => {
         const loadPosts = async () => {
             try {
-                url = endpoints['list-posts'] + `?userId=${id}`
+                url = `${endpoints['list-posts']}?userId=${id}`
                 let res = await authApi(state.accessToken).get(url);
                 setPosts(res.data.results);
             } catch (error) {
