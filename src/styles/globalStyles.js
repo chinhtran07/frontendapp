@@ -24,6 +24,7 @@ export default StyleSheet.create({
         paddingLeft: 8,
     },
     button: {
+        flexDirection: 'row',
         borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',

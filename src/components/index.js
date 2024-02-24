@@ -8,6 +8,7 @@ import InputComponent from "./InputComponent"
 import ReactionComponent from "./post/ReactionComponent"
 import PostComponent from "./post/PostComponent"
 import AddSurveyComponent from "./AddSurveyComponent"
+import CustomDropDownPicker from "./CustomDropDownPicker"
 
 export {
     SpaceComponent,
@@ -19,5 +20,6 @@ export {
     InputComponent,
     ReactionComponent,
     PostComponent,
-    AddSurveyComponent
+    AddSurveyComponent,
+    CustomDropDownPicker
 }

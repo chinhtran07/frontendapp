@@ -5,7 +5,7 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API, { authApi, endpoints } from "../../configs/API";
 import DropDownPicker from "react-native-dropdown-picker";
-import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, TextComponent } from "../../components";
+import { ButtonComponent, ContainerComponent, CustomDropDownPicker, InputComponent, RowComponent, SectionComponent, TextComponent } from "../../components";
 import { User, Lock } from "iconsax-react-native";
 import useAuth from "../../configs/AuthContext";
 import globalStyles from "../../styles/globalStyles";
@@ -19,7 +19,6 @@ const LoginScreen = ({ navigation }) => {
         { label: 'Giảng viên', value: 2 },
         { label: 'Quản trị viên', value: 3 },
     ]);
-    const [open, setOpen] = useState(false);
     const [value, setValue] = useState(1);
 
     const [loading, setLoading] = useState(false);
@@ -67,16 +66,11 @@ const LoginScreen = ({ navigation }) => {
             </SectionComponent>
             <SectionComponent>
                 <TextComponent text="ĐĂNG NHẬP" size={22} color="#5608ff" styles={{ alignSelf: 'center', marginBottom: 10, fontWeight: 'bold' }} />
-                <DropDownPicker
-                    style={[{ marginBottom: 10, borderColor: appColors.blue }]}
-                    dropDownStyle={globalStyles.dropdownDropStyle}
-                    open={open}
-                    value={value}
+                <CustomDropDownPicker 
                     items={roles}
-                    setOpen={setOpen}
-                    setValue={setValue}
                     setItems={setRoles}
-                    onChangeItem={(item) => setValue(item.value)}
+                    selectedValue={value}
+                    setSelectedValue={setValue}
                 />
                 <InputComponent
                     value={username}

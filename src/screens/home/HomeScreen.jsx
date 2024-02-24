@@ -1,5 +1,5 @@
 import { ActivityIndicator, Image, TouchableOpacity } from "react-native";
-import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent, AddSurveyComponent } from "../../components";
+import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent, AddSurveyComponent, CustomDropDownPicker } from "../../components";
 import useAuth from "../../configs/AuthContext";
 import { appColors } from "../../constants/appColors";
 import { useEffect, useState } from "react";
@@ -24,7 +24,6 @@ const HomeScreen = ({ navigation }) => {
         { label: 'Invitation', value: 3 }
     ])
     const [value, setValue] = useState(1)
-    const [open, setOpen] = useState(false);
 
     const addPost = async () => {
         if (content === "") {
@@ -101,16 +100,11 @@ const HomeScreen = ({ navigation }) => {
     return (
         <ContainerComponent isScroll>
             {user.role === 3 ? (
-                <DropDownPicker
-                    style={[{ marginBottom: 10, borderColor: appColors.blue }]}
-                    dropDownStyle={globalStyles.dropdownDropStyle}
-                    open={open}
-                    value={value}
+                <CustomDropDownPicker 
                     items={types}
-                    setOpen={setOpen}
-                    setValue={setValue}
                     setItems={setTypes}
-                    onChangeItem={(item) => setValue(item.value)}
+                    selectedValue={value}
+                    setSelectedValue={setValue}
                 />
             ) : <></>}
             {value === 1 ? (
@@ -127,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
                             paddingTop: 10
                         }}>
                         <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-                            <Image source={{ uri: user.avatar }} width={50} height={50} resizeMode='cover' borderRadius={50} />
+                            <Image source={user.avatar === null ? require("../../assets/images/avatar.jpg") : { uri: user.avatar }} width={50} height={50} resizeMode='cover' borderRadius={50} />
                         </TouchableOpacity>
                         <SpaceComponent width={5} />
                         <InputComponent value={content} onChange={val => setContent(val)} placeholder="Nội dung bài viết" multiline={true} />
