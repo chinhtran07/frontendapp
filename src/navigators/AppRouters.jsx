@@ -26,7 +26,7 @@ const AppRouters = () => {
     const checkLogin = async () => {
         const token = await getItem();
         try {
-            const data = await authApi(token).get(endpoints['current-user']).then(u => u.data)
+            const data = await authApi(token).get(endpoints['current_user']).then(u => u.data)
             token && dispatch({
                 type: 'login',
                 payload: {

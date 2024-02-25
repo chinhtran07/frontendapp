@@ -14,7 +14,7 @@ const ProfileScreen = () => {
     useEffect(() => {
         const loadPosts = async () => {
             try {
-                url = `${endpoints['list-posts']}?userId=${state.user.id}` 
+                url = `${endpoints['list_posts']}?userId=${state.user.id}` 
                 let res = await authApi(state.accessToken).get(url);
                 setPosts(res.data.results);
             } catch (error) {

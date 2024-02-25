@@ -37,7 +37,7 @@ const MainNavigator = () => {
                 }}
                 name="Main" component={TabNavigator} />
             <Stack.Screen options={{headerShown: false}} name="Searching" component={SearchingScreen}/>
-            <Stack.Screen options={{headerShown: true}} name="UserProfile" component={UserProfileScreen} />
+            <Stack.Screen options={{headerShown: false}} name="UserProfile" component={UserProfileScreen} />
         </Stack.Navigator>
     )
 }

@@ -37,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
 
             await AsyncStorage.setItem("accessToken", res.data.access_token)
             let accessToken = res.data.access_token;
-            let user = await authApi(res.data.access_token).get(endpoints['current-user']);
+            let user = await authApi(res.data.access_token).get(endpoints['current_user']);
             let data = user.data;
             dispatch({
                 type: 'login',

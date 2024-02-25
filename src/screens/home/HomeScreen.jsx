@@ -88,30 +88,30 @@ const HomeScreen = ({ navigation }) => {
             setImages([])
         }
     }
+    const loadPosts = async () => {
+        try {
+            let url = `${endpoints['list_random_posts']}?page=${page}`
+            let res = await authApi(state.accessToken).get(url);
+            setPosts(res.data.results);
+            setMaxPage(Math.ceil(res.data.count / 10));
+        } catch (error) {
+            setPosts([])
+            console.error(error)
+        }
+    };
+    const loadSurveys = async () => {
+        try {
+            let url = `${endpoints['list_surveys']}?page=${page}`
+            let res = await authApi(state.accessToken).get(url);
+            setSurveys(res.data.results);
+            setMaxPage(Math.ceil(res.data.count / 10));
+        } catch (error) {
+            setSurveys(null)
+            console.error(error)
+        }
+    }
 
     useEffect(() => {
-        const loadPosts = async () => {
-            try {
-                let url = `${endpoints['list-random-posts']}?page=${page}`
-                let res = await authApi(state.accessToken).get(url);
-                setPosts(res.data.results);
-                setMaxPage(Math.ceil(res.data.count / 10));
-            } catch (error) {
-                setPosts([])
-                console.error(error)
-            }
-        };
-        const loadSurveys = async () => {
-            try {
-                let url = `${endpoints['list-surveys']}?page=${page}`
-                let res = await authApi(state.accessToken).get(url);
-                setSurveys(res.data.results);
-                setMaxPage(Math.ceil(res.data.count / 10));
-            } catch (error) {
-                setSurveys(null)
-                console.error(error)
-            }
-        }
         switch (showTypeValue) {
             case 1:
                 loadPosts();
@@ -122,7 +122,7 @@ const HomeScreen = ({ navigation }) => {
             default:
                 break;
         }
-    }, [page])
+    }, [page, showTypeValue])
 
     const goToPreviousPage = () => {
         setPage(prevPage => Math.max(prevPage - 1, 1));
@@ -210,19 +210,19 @@ const HomeScreen = ({ navigation }) => {
                     </>
                 ))
             }
-            {showTypeValue === 2 && 
-            (surveys === null ? (
-                <ActivityIndicator />
-            ) : (
-                <>
-                    <SpaceComponent height={10} />
-                    {surveys.map(s => (
-                        <SectionComponent key={s.id}>
-                            <SurveyComponent survey={s}/>
-                        </SectionComponent>
-                    ))}
-                </>
-            ))}
+            {showTypeValue === 2 &&
+                (surveys === null ? (
+                    <ActivityIndicator />
+                ) : (
+                    <>
+                        <SpaceComponent height={10} />
+                        {surveys.map(s => (
+                            <SectionComponent key={s.id}>
+                                <SurveyComponent survey={s} />
+                            </SectionComponent>
+                        ))}
+                    </>
+                ))}
         </ContainerComponent >
     )
 };

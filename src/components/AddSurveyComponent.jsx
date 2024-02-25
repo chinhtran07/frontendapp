@@ -12,7 +12,6 @@ import ButtonComponent from "./ButtonComponent";
 import { ElementPlus } from "iconsax-react-native";
 import QuestionComponent from "./QuestionComponent";
 import { authApi, endpoints } from "../configs/API";
-import { LoadingModal } from "../modal";
 
 const AddSurveyComponent = () => {
     const [state, dispatch] = useAuth();
@@ -133,7 +132,6 @@ const AddSurveyComponent = () => {
             />
             <SpaceComponent height={10} />
             <ButtonComponent text="Đăng" type="primary" onPress={postSurvey}/>
-            <LoadingModal visible={loading}/>
         </SectionComponent>
     )
 }
