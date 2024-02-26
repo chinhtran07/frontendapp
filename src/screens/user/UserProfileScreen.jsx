@@ -1,46 +1,27 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { authApi, endpoints } from "../../configs/API";
 import useAuth from "../../configs/AuthContext";
-import { ContainerComponent, PostComponent, SectionComponent, SpaceComponent, TextComponent } from "../../components";
-import { ActivityIndicator, Text } from "react-native";
+import { ContainerComponent, PostComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent } from "../../components";
+import { ActivityIndicator, TouchableOpacity } from "react-native";
 import Header from "./HeaderUserProfile";
 import MyContext from "../../configs/MyContext";
-import userReducer from "../../reducers/userReducer";
+import { ArrowLeft } from "iconsax-react-native";
+import { appColors } from "../../constants/appColors";
 
 
-const UserProfileScreen = ({ route}) => {
+const UserProfileScreen = ({ route, navigation }) => {
     const [state] = useAuth()
     const [posts, setPosts] = useState([])
-    const [user, dispatch] = useReducer(userReducer, null)
 
 
-    const id = route.params.userId
+    const { userId } = route.params
 
-    console.info([state.accessToken, endpoints.retrieve_user(id)])
-
-    useEffect(() => {
-        const loadUser = async () => {
-            try {
-                let res = await authApi(state.accessToken).get(endpoints.retrieve_user(id)).then(res => res.data);
-                dispatch({
-                    'type': 'read',
-                    'payload': {
-                        user: res
-                    }
-                })
-            } catch (error) {
-                console.error(error);
-            }
-        };
-            loadUser();
-    }, [id])
-
-    console.log(user)
+    console.info([state.accessToken, endpoints.retrieve_user(userId)])
 
     useEffect(() => {
         const loadPosts = async () => {
             try {
-                url = `${endpoints['list_posts']}?userId=${id}`
+                url = `${endpoints['list_posts']}?userId=${userId}`
                 let res = await authApi(state.accessToken).get(url);
                 setPosts(res.data.results);
             } catch (error) {
@@ -50,10 +31,19 @@ const UserProfileScreen = ({ route}) => {
         loadPosts();
     }, [])
 
+
     return (
-        <MyContext.Provider value={{user}}>
+        <MyContext.Provider value={{ "userId": userId }}>
             <ContainerComponent isScroll>
-                <Header />
+                <SectionComponent styles={{ paddingTop: 30 }}>
+                    <RowComponent styles={{ justifyContent: 'space-between' }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <ArrowLeft size={30} color={appColors.black} />
+                        </TouchableOpacity>
+                        <TextComponent text="Thông tin chi tiết" size={30} />
+                    </RowComponent>
+                </SectionComponent>
+                {/* <Header /> */}
                 <SpaceComponent height={10} />
                 <TextComponent text="Bài viết" size={24} styles={{ paddingBottom: 10, fontWeight: '400' }} />
                 {posts === null ? <ActivityIndicator /> :

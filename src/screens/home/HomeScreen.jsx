@@ -2,7 +2,7 @@ import { ActivityIndicator, Image, TouchableOpacity } from "react-native";
 import { ButtonComponent, ContainerComponent, InputComponent, RowComponent, SectionComponent, SpaceComponent, TextComponent, PostComponent, AddSurveyComponent, CustomDropDownPicker, SurveyComponent } from "../../components";
 import useAuth from "../../configs/AuthContext";
 import { appColors } from "../../constants/appColors";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { authApi, endpoints } from "../../configs/API";
 import * as ImagePicker from 'expo-image-picker';
 import { ArrowLeft, ArrowRight } from "iconsax-react-native";
@@ -101,16 +101,15 @@ const HomeScreen = ({ navigation }) => {
     };
     const loadSurveys = async () => {
         try {
-            let url = `${endpoints['list_surveys']}?page=${page}`
+            let url = `${endpoints['list_surveys']}?page=${page}`;
             let res = await authApi(state.accessToken).get(url);
             setSurveys(res.data.results);
             setMaxPage(Math.ceil(res.data.count / 10));
         } catch (error) {
-            setSurveys(null)
-            console.error(error)
+            setSurveys([]);
+            console.error(error);
         }
-    }
-
+    };
     useEffect(() => {
         switch (showTypeValue) {
             case 1:

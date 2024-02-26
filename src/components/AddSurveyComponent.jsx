@@ -14,7 +14,7 @@ import QuestionComponent from "./QuestionComponent";
 import { authApi, endpoints } from "../configs/API";
 
 const AddSurveyComponent = () => {
-    const [state, dispatch] = useAuth();
+    const [state,] = useAuth();
     const user = state.user
     const [survey, setSurvey] = useState({
         "title": "",
