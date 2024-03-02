@@ -2,6 +2,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { HomeScreen, MessageScreen, NotificationScreen, ProfileScreen } from "../screens";
 import SettingNavigator from "./SettingNavigator";
 import { Home, Messages, Notification, Profile2User, Setting2 } from "iconsax-react-native";
+import MessageNavigator from "./MessageNavigator";
 
 const TabNavigator = () => {
     const Tab = createMaterialTopTabNavigator();
@@ -43,7 +44,7 @@ const TabNavigator = () => {
             })}>
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
-            <Tab.Screen name="Message" component={MessageScreen} />
+            <Tab.Screen name="Message" component={MessageNavigator} />
             <Tab.Screen name="Notification" component={NotificationScreen} />
             <Tab.Screen name="Setting" component={SettingNavigator} />
         </ Tab.Navigator>

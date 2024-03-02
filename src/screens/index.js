@@ -9,6 +9,7 @@ import NotificationScreen from "./notification/NotificationScreen";
 import SettingScreen from "./setting/SettingScreen";
 import SearchingScreen from "./searching/SearchingScreen";
 import UserProfileScreen from "./user/UserProfileScreen";
+import FriendScreen from "./message/FriendScreen";
 
 export {
     SplashScreen,
@@ -21,5 +22,6 @@ export {
     NotificationScreen,
     SettingScreen,
     SearchingScreen,
-    UserProfileScreen
+    UserProfileScreen,
+    FriendScreen,
 }

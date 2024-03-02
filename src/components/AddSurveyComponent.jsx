@@ -91,7 +91,7 @@ const AddSurveyComponent = () => {
             return;
         }        
         try {
-            let res = await authApi(state.accessToken).post(endpoints['add-survey'], survey)
+            let res = await authApi(state.accessToken).post(endpoints['add_survey'], survey)
             console.info(res.data)
             setShow(!show)
             setLoading(!loading)

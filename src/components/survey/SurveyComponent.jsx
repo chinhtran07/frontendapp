@@ -34,9 +34,9 @@ const SurveyComponent = ({ survey }) => {
         <View style={{ backgroundColor: appColors.white, borderRadius: 10 }}>
             <AvatarPostComponent user={user} />
             <SectionComponent>
-                {survey.updated_date ?
-                    <TextComponent text={moment(survey.updated_date).fromNow()} /> :
-                    <TextComponent text={moment(survey.created_date).fromNow()} />
+                {survey.created_date ?
+                    <TextComponent text={moment(survey.created_date).fromNow()} /> :
+                    <TextComponent text={moment(survey.updated_date).fromNow()} /> 
                 }
             </SectionComponent>
             <SectionComponent styles={{justifyContent: 'center', alignItems: 'center'}}>

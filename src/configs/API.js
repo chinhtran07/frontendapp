@@ -15,6 +15,12 @@ export const endpoints = {
     'list_random_posts': '/posts/list-random-posts/',
     'reacts': (postID) => `/posts/${postID}/reacts/`,
     'list_surveys': '/surveys/',
+    'add_comments': (postID) => `/posts/${postID}/comments/`,
+    'delete_comment': (commentId) => `/comments/${commentId}/`,
+    'list_friends': '/users/list_friends/',
+    'list_notifications': '/notifications/',
+    'send_message': '/messages/send_message/',
+    'list_messages': '/messages/list_user_messages/',
 }
 
 

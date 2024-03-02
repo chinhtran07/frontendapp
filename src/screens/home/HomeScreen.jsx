@@ -44,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
                 })
             })
             form.append('content', content);
-            let res = await authApi(state.accessToken).post(endpoints['add-posts'], form, {
+            let res = await authApi(state.accessToken).post(endpoints['add_posts'], form, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
@@ -88,29 +88,29 @@ const HomeScreen = ({ navigation }) => {
             setImages([])
         }
     }
-    const loadPosts = async () => {
-        try {
-            let url = `${endpoints['list_random_posts']}?page=${page}`
-            let res = await authApi(state.accessToken).get(url);
-            setPosts(res.data.results);
-            setMaxPage(Math.ceil(res.data.count / 10));
-        } catch (error) {
-            setPosts([])
-            console.error(error)
-        }
-    };
-    const loadSurveys = async () => {
-        try {
-            let url = `${endpoints['list_surveys']}?page=${page}`;
-            let res = await authApi(state.accessToken).get(url);
-            setSurveys(res.data.results);
-            setMaxPage(Math.ceil(res.data.count / 10));
-        } catch (error) {
-            setSurveys([]);
-            console.error(error);
-        }
-    };
     useEffect(() => {
+        const loadPosts = async () => {
+            try {
+                let url = `${endpoints['list_random_posts']}?page=${page}`
+                let res = await authApi(state.accessToken).get(url);
+                setPosts(res.data.results);
+                setMaxPage(Math.ceil(res.data.count / 10));
+            } catch (error) {
+                setPosts([])
+                console.error(error)
+            }
+        };
+        const loadSurveys = async () => {
+            try {
+                let url = `${endpoints['list_surveys']}?page=${page}`;
+                let res = await authApi(state.accessToken).get(url);
+                setSurveys(res.data.results);
+                setMaxPage(Math.ceil(res.data.count / 10));
+            } catch (error) {
+                setSurveys([]);
+                console.error(error);
+            }
+        };
         switch (showTypeValue) {
             case 1:
                 loadPosts();
